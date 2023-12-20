@@ -1,0 +1,166 @@
+//Title :- Design a Class Hierarchy representing different types of Vehicle and speed capabalities ;
+#include<iostream>
+using namespace std;
+//base classs
+class vehicle{
+  protected:
+    int milage,company;
+    string colour,model;
+    static int maxspeed;
+    public:
+     display(){
+         cout<<" model of vehicle : "<<model<<endl;
+        cout<<" color of vehicle :"<<colour<<endl;
+        cout<<" milage of vehicle : "<<milage<<" KMPL"<<endl;
+    }
+    vehicle(){
+      display();
+    }
+    //ENCAPSULATION
+    vehicle(string x,string y,int z){
+       model=x;
+       colour=y;
+       milage=z;
+         //display();
+       //   cout<<" model of vehicle : "<<model<<endl;
+       // cout<<" color of vehicle :"<<colour<<endl;
+        //  cout<<" milage of vehicle : "<<milage<<endl;
+    }
+    static void topspeed(int topspeed){
+       maxspeed =topspeed;
+        cout<<"top TOP speed of vechile ::"<<maxspeed<<" km per hrs"<<endl;
+
+    }
+
+    // public:
+    int speed=0;
+  void   currspeed(){
+      cout<<"the speed of vechile are "<<speed<<" KM PER HRS"<<endl;
+    }
+    int accelerate(int amount ){
+        speed+=amount;
+        cout<<"vechile SPEED is increases to  "<<speed<<" kmph"<<endl;
+    }
+    //Remark Operator Operloading
+    vehicle operator--(){
+         vehicle brake;
+         brake.speed=speed/2;
+      //   return brake;
+      cout<<"speed of vehicle is decreases to "<<speed<<" kmph"<<endl;
+         
+    }
+    
+  
+};
+
+//Derived Class
+class Car: public vehicle{
+  public:
+   display(){
+          cout<<" model of CAR : "<<model<<endl;
+         cout<<" color of CAR :"<<colour<<endl;
+         cout<<" milage of CAR : "<<milage<<endl;
+     }
+    //ENCAPSULATION
+    Car(){
+
+    }
+
+  Car(string g,string h,int i): vehicle(g,h,i){
+    //display();
+      cout<<"derived class 1 "<<endl;
+  }
+};
+class bike:public vehicle{
+public:
+int power=220;
+     bike(string j,string k,int l):vehicle(j,k,l){
+     }
+   void display(){
+     cout<<" model of BIKE : "<<model<<endl;
+         cout<<" color of BIKE :"<<colour<<endl;
+         cout<<" milage of BIKE : "<<milage<<endl;
+     }
+     
+     
+     friend void enginepower(bike &obj);
+
+};
+  void  enginepower(bike &obj){
+      cout<<"the capacity of bike engine are "<<obj.power<<" CC"<<endl;
+    }
+
+
+int vehicle::maxspeed=200;
+
+class CNGAUTO:public vehicle{
+  public:
+  CNGAUTO(string j,string k,int l):vehicle(j,k,l){
+     }
+     void display(){
+      cout<<" model of AUTO : "<<model<<endl;
+         cout<<" color of AUTO :"<<colour<<endl;
+         cout<<" milage of AUTO : "<<milage<<endl;
+     }
+
+
+};
+int main(){
+vehicle *obj=new vehicle("TATA T1","WHITE",89);
+//DERIVED CLASS CAR
+Car mahindra("mahinadra z7","black",20);
+obj=&mahindra;
+obj->display();
+bike pulsar("pulsar 220","red & black",45);
+pulsar.display();
+enginepower(pulsar);  //FRIEND FUNCTION CALL
+pulsar.topspeed(140);  //STATIC DATA AND METHOD USE
+obj->currspeed();
+obj->accelerate(56);
+vehicle truck("tata *","black",78);
+//truck=--obj;
+truck.accelerate(76);
+truck.currspeed();
+//
+int choice;
+do{
+cout<<"\n\t************************";
+	cout<<"\n\t* 1.Two Wheelar      *";
+	cout<<"\n\t* 3.Three Wheelar    *";
+	cout<<"\n\t* 3.Four Wheelar     *";
+  cout<<"\n\t* 4.   Exit          *";
+	cout<<"\n\t**********************";
+  cout<<"\nenter your choice "<<endl;
+	cin>>choice;
+	if(choice==1){
+		 bike pulsar("pulsar220,","red",59) ;
+     pulsar.display();
+     enginepower(pulsar); 
+		pulsar.topspeed(140);
+}
+else if(choice==2){
+  CNGAUTO autol("autto f1","yellow",57);
+  autol.display();
+}
+else if(choice==3){
+  Car Fortuner("fortur","white",13);
+  Fortuner.display();
+}
+
+else if(choice==4){
+break;
+
+}
+}
+while(choice!=4);
+  
+system("pause");
+	// int choice;
+	// cout<<"\nenter your choice "<<endl;
+	// cin>>choice;
+	// if(choice==1){
+	// 	 bike pulsar("pulsar220,","red",59) ;
+  //    pulsar.display();
+  //    enginepower(pulsar); 
+	// 	pulsar.topspeed(140);
+}
